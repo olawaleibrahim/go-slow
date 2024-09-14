@@ -27,7 +27,16 @@ func main() {
 
 	// fmt.Printf("Future value: %v \nFuture real valuue: %v", futureValue, futureRealValue)
 	// fmt.Println(futureRealValue)
-	fmt.Println("Divisor result:", divisor(90, 340))
+
+	var numerator float64
+	var denominator float64
+	for i := 0; i < 2; i++ {
+		fmt.Print("Enter numerator: ")
+		fmt.Scan(&numerator)
+		fmt.Print("Enter denominator: ")
+		fmt.Scan(&denominator)
+		fmt.Println("Divisor result:", divisor(denominator, numerator))
+	}
 }
 
 func divisor(denominator float64, numerator float64) float64 {

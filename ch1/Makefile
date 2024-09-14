@@ -10,8 +10,9 @@ lint: fmt
 
 vet: fmt
 	go vet ./...
+	shadow ./...
 .PHONY:vet
 
 build: vet
-	go build hello.go
+	go build investment_calculator.go
 .PHONY:build
