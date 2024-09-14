@@ -30,12 +30,13 @@ func main() {
 
 	var numerator float64
 	var denominator float64
-	for i := 0; i < 2; i++ {
+	for i := 0; i < 3; {
 		fmt.Print("Enter numerator: ")
 		fmt.Scan(&numerator)
 		fmt.Print("Enter denominator: ")
 		fmt.Scan(&denominator)
 		fmt.Println("Divisor result:", divisor(denominator, numerator))
+		i++
 	}
 }
 
