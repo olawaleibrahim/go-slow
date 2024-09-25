@@ -1,46 +1,15 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"math"
+	"os"
+	"strconv"
 )
 
 const inflationRate = 2.5
-
-func main() {
-	// var investmentAmount float64
-	// var expectedReturnRate float64
-	// var years float64
-
-	// fmt.Print("Investment Amount: ")
-	// fmt.Scan(&investmentAmount)
-
-	// fmt.Print("Expected return rate: ")
-	// fmt.Scan(&expectedReturnRate)
-
-	// fmt.Print("Years: ")
-	// fmt.Scan(&years)
-
-	// futureValue, futureRealValue := calculateFutureValues(investmentAmount, expectedReturnRate, years)
-	// futureValue := investmentAmount * math.Pow((1+expectedReturnRate/100), years)
-	// futureRealValue := futureValue / math.Pow(1+inflationRate/100, years)
-
-	// fmt.Printf("Future value: %v \nFuture real valuue: %v", futureValue, futureRealValue)
-	// fmt.Println(futureRealValue)
-
-	var numerator float64
-	var denominator float64
-	for {
-		fmt.Print("Enter numerator: ")
-		fmt.Scan(&numerator)
-		fmt.Print("Enter denominator: ")
-		fmt.Scan(&denominator)
-		fmt.Println("Divisor result:", divisor(denominator, numerator))
-		if numerator == 0 {
-			break
-		}
-	}
-}
+const divisorFile = "divisor.txt"
 
 func divisor(denominator float64, numerator float64) float64 {
 	if denominator == 0 {
@@ -55,6 +24,49 @@ func divisor(denominator float64, numerator float64) float64 {
 		return numerator / denominator
 	}
 
+}
+
+func main() {
+
+	var numerator float64
+	var denominator float64
+	for {
+		divisorText, _ := getDivisorFromFile()
+		println("Divisor from text:", divisorText)
+		fmt.Print("Enter numerator: ")
+		fmt.Scan(&numerator)
+		fmt.Print("Enter denominator: ")
+		fmt.Scan(&denominator)
+
+		if numerator == 0 {
+			break
+		}
+		result := divisor(denominator, numerator)
+		fmt.Println("Divisor result:", result)
+		writeDivisorToFile(result)
+	}
+}
+
+func writeDivisorToFile(divisor float64) {
+	divisorText := fmt.Sprintln(divisor)
+	os.WriteFile("divisor.txt", []byte(divisorText), 0644)
+}
+
+func getDivisorFromFile() (float64, error) {
+	data, err := os.ReadFile((divisorFile))
+
+	if err != nil {
+		return 1000, errors.New("failed to find divisor file")
+	}
+
+	balanceText := string(data)
+	balance, err := strconv.ParseFloat(balanceText, 64)
+
+	if err != nil {
+		return 1000, errors.New("failed to parse stored divisor value")
+	}
+
+	return balance, nil
 }
 
 func calculateFutureValues(
