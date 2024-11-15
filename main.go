@@ -5,12 +5,24 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+
+	"github.com/Pallinder/go-randomdata"
 	"github.com/olawaleibrahim/go-slow/comms"
+	"github.com/olawaleibrahim/go-slow/pointers"
 )
 
 const accountBalanceFile = "balance.txt"
 
 func main() {
+
+	for {
+		if true {
+			pointers.App()
+		}
+		break
+	}
+
+	fmt.Println("Reach us 24/7", randomdata.PhoneNumber())
 	var accountBalance, err = getBalanceFromFile()
 
 	if err != nil {
@@ -97,5 +109,3 @@ func writeBalanceToFile(balance float64) {
 	balanceText := fmt.Sprint(balance)
 	os.WriteFile(accountBalanceFile, []byte(balanceText), 0644)
 }
-
-
