@@ -4,14 +4,16 @@ import "fmt"
 
 func App() {
 	age := 32
-	var userAge *int
-	userAge = &age
+	// var userAge *int
+	userAge := &age
 	fmt.Println("Age:", *userAge)
 
-	adultYears := getAdultYears(age)
+	adultYears := getAdultYears(userAge)
 	fmt.Println("Adult years:", adultYears)
+	fmt.Println("age years:", age)
 }
 
-func getAdultYears(age int) int {
-	return age - 18
+func getAdultYears(age *int) int {
+	*age = *age - 18
+	return *age
 }
